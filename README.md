@@ -142,36 +142,6 @@ src/
 
 ---
 
-## 🚀 البدء السريع
-
-### المتطلبات الأساسية
-
-- [Node.js](https://nodejs.org/) (LTS)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-
-### التثبيت
-
-```bash
-# 1. استنساخ المشروع
-git clone https://github.com/Hosamtarde/Distributed-Multi-Branch-Inventory-Management-System.git
-cd Distributed-Multi-Branch-Inventory-Management-System/inventory-system
-
-# 2. تثبيت الحزم
-npm install
-
-# 3. تشغيل قاعدة البيانات عبر Docker
-docker run --name inventory-postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=inventory_db -p 5432:5432 -d postgres:16
-
-# 4. إعداد ملف البيئة
-# أنشئ ملف .env وأضف المتغيرات المطلوبة (راجع .env.example)
-
-# 5. تشغيل بيانات تجريبية (اختياري)
-npm run seed
-
-# 6. تشغيل المشروع
-npm run start:dev
-```
-
 ### الحسابات التجريبية (بعد تشغيل `npm run seed`)
 
 | الحساب | كلمة السر | الدور |
