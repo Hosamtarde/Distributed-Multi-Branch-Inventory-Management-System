@@ -18,7 +18,6 @@ export class ProductsService {
     const product = this.productsRepository.create({
       name: dto.name,
       description: dto.description,
-      basePrice: dto.basePrice,
     });
 
     if (dto.categoryId) {
@@ -57,7 +56,6 @@ export class ProductsService {
     Object.assign(product, {
       name: dto.name ?? product.name,
       description: dto.description ?? product.description,
-      basePrice: dto.basePrice ?? product.basePrice,
     });
 
     return this.productsRepository.save(product);
