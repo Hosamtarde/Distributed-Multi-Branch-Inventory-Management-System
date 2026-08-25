@@ -1,98 +1,280 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 🏬 Distributed Multi-Branch Inventory Management System
+### نظام إدارة مخزون موزّع متعدد الفروع
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 
-## Description
+نظام Backend متكامل لإدارة سلسلة متاجر متعددة الفروع، يحاكي تحديات حقيقية تواجهها الشركات في القطاع التجاري: **Concurrency، Event-Driven Architecture، وRole-Based Access Control**.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[نظرة عامة](#-نظرة-عامة) •
+[المشاكل التقنية](#-المشاكل-التقنية-التي-يحلها-المشروع) •
+[التقنيات](#️-التقنيات-المستخدمة) •
+[البدء السريع](#-البدء-السريع) •
+[الـ API](#-توثيق-api) •
+[خارطة الطريق](#-خارطة-الطريق)
 
-## Project setup
+</div>
 
-```bash
-$ npm install
+---
+
+## 📖 نظرة عامة
+
+نظام Backend مبني لإدارة سلسلة متاجر لها أكثر من فرع، بحيث:
+
+- 🏢 كل فرع له مخزونه الخاص من كل منتج
+- 🛒 يوجد متجر إلكتروني مركزي يخدم كل الفروع
+- 🎯 النظام يقرر تلقائياً أي فرع يُلبّي كل طلب حسب القرب وتوفر الكمية
+- 🔒 النظام يمنع "البيع الزائد" (Overselling) حتى في حالات الطلبات المتزامنة
+
+<div align="center">
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  فرع نابلس   │     │  فرع رام الله │     │  فرع الخليل  │
+│  📦 مخزون    │     │  📦 مخزون    │     │  📦 مخزون    │
+└──────┬──────┘     └──────┬──────┘     └──────┬──────┘
+       │                   │                   │
+       └───────────────────┼───────────────────┘
+                            │
+                  ┌─────────▼──────────┐
+                  │   النظام المركزي    │
+                  │  (NestJS + Postgres) │
+                  └─────────┬──────────┘
+                            │
+                  ┌─────────▼──────────┐
+                  │   المتجر الإلكتروني  │
+                  └────────────────────┘
 ```
 
-## Compile and run the project
+</div>
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## 🎯 المشاكل التقنية التي يحلها المشروع
 
-# production mode
-$ npm run start:prod
+### 1️⃣ التعامل مع الطلبات المتزامنة (Concurrency & Locking)
+منع **Race Conditions** التي قد تؤدي لبيع نفس المنتج لأكثر من زبون في نفس اللحظة، عبر آليات **Pessimistic/Optimistic Locking**.
+
+### 2️⃣ التزامن بين الفروع (Event-Driven Architecture)
+نشر التحديثات اللحظية (نفاذ منتج، تحديث مخزون) عبر **EventEmitter** و **WebSocket**، بدلاً من الاستعلام المستمر البطيء.
+
+### 3️⃣ محرك تحديد جهة التلبية (Fulfillment Engine)
+خوارزمية تحدد أي فرع (أو أكثر) يُلبّي كل طلب أونلاين بناءً على القرب الجغرافي وتوفر المخزون.
+
+---
+
+## 🛠️ التقنيات المستخدمة
+
+| الطبقة | التقنية |
+|---|---|
+| **Backend Framework** | NestJS (TypeScript) |
+| **قاعدة البيانات** | PostgreSQL |
+| **ORM** | TypeORM |
+| **المصادقة** | JWT + Passport (Access & Refresh Tokens) |
+| **التحقق من البيانات** | class-validator / class-transformer |
+| **البيئة** | Docker |
+| **الأحداث اللحظية** *(قادم)* | EventEmitter / Socket.io |
+| **الطوابير** *(قادم)* | BullMQ + Redis |
+
+---
+
+## 🏗️ البنية المعمارية
+
+المشروع مبني على معمارية **Modular** — كل ميزة في وحدة مستقلة تحتوي على:
+
+```
+src/
+├── auth/                  # آليات الحماية العامة (Guards, Strategies, Decorators)
+├── users/                 # المصادقة وإدارة المستخدمين
+│   ├── dto/
+│   ├── entities/
+│   ├── enums/
+│   └── ...
+├── branches/               # إدارة الفروع
+├── categories/              # فئات المنتجات
+├── products/                 # المنتجات ومتغيراتها (Variants)
+│   └── products-variants/
+└── app.module.ts
 ```
 
-## Run tests
+كل موديول يتبع نمط ثابت: `Entity → DTO → Service → Controller → Module`، مع حماية عبر `JwtAuthGuard` و `RolesGuard`.
+
+---
+
+## ✅ الحالة الحالية للمشروع
+
+<div align="center">
+
+| # | الموديول | الحالة |
+|:---:|---|:---:|
+| 0 | Setup (Docker, PostgreSQL, TypeORM) | ✅ منجز |
+| 1 | Authentication & Users (JWT, Roles, Refresh Tokens) | ✅ منجز |
+| 2 | Branches Management | ✅ منجز |
+| 3 | Products & Categories & Variants | ✅ منجز |
+| 4 | Inventory Management (Locking) | 🔄 قيد التطوير |
+| 5 | Orders (Online + POS) | ⬜ قادم |
+| 6 | Fulfillment Engine | ⬜ قادم |
+| 7 | Returns & Refunds | ⬜ قادم |
+| 8 | Inter-Branch Transfer | ⬜ قادم |
+| 9 | Suppliers & Purchase Orders | ⬜ قادم |
+| 10 | Pricing & Promotions | ⬜ قادم |
+| 11 | Events & Real-time Notifications | ⬜ قادم |
+| 12 | Audit Log | ⬜ قادم |
+| 13 | Reports & Analytics | ⬜ قادم |
+| 14 | Multi-Tenancy | ⬜ قادم |
+
+</div>
+
+---
+
+## 🔐 نظام الأدوار (RBAC)
+
+| الدور | القيمة | الصلاحيات |
+|---|---|---|
+| 👑 **Admin** | `admin` | صلاحية كاملة على كل النظام |
+| 🏪 **Branch Manager** | `branch_manager` | إدارة فرع واحد محدد |
+| 👤 **Staff** | `staff` | عمليات البيع وعرض المخزون |
+
+---
+
+## 🚀 البدء السريع
+
+### المتطلبات الأساسية
+
+- [Node.js](https://nodejs.org/) (LTS)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+### التثبيت
 
 ```bash
-# unit tests
-$ npm run test
+# 1. استنساخ المشروع
+git clone https://github.com/Hosamtarde/Distributed-Multi-Branch-Inventory-Management-System.git
+cd Distributed-Multi-Branch-Inventory-Management-System/inventory-system
 
-# e2e tests
-$ npm run test:e2e
+# 2. تثبيت الحزم
+npm install
 
-# test coverage
-$ npm run test:cov
+# 3. تشغيل قاعدة البيانات عبر Docker
+docker run --name inventory-postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=inventory_db -p 5432:5432 -d postgres:16
+
+# 4. إعداد ملف البيئة
+# أنشئ ملف .env وأضف المتغيرات المطلوبة (راجع .env.example)
+
+# 5. تشغيل بيانات تجريبية (اختياري)
+npm run seed
+
+# 6. تشغيل المشروع
+npm run start:dev
 ```
 
-## Deployment
+### الحسابات التجريبية (بعد تشغيل `npm run seed`)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+| الحساب | كلمة السر | الدور |
+|---|---|---|
+| `admin@test.com` | `123456` | Admin |
+| `manager@test.com` | `123456` | Branch Manager |
+| `staff@test.com` | `123456` | Staff |
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+---
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+## 📡 توثيق API
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 🔑 Authentication
 
-## Resources
+| Method | Endpoint | الوصف | الحماية |
+|---|---|---|:---:|
+| `POST` | `/auth/register` | تسجيل حساب جديد | 🔓 |
+| `POST` | `/auth/login` | تسجيل الدخول | 🔓 |
+| `POST` | `/auth/refresh` | تجديد Access Token | 🔓 |
+| `POST` | `/auth/logout` | تسجيل الخروج | 🔓 |
+| `GET` | `/auth/me` | بيانات المستخدم الحالي | 🔒 |
 
-Check out a few resources that may come in handy when working with NestJS:
+### 🏢 Branches
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Method | Endpoint | الوصف | الحماية |
+|---|---|---|:---:|
+| `GET` | `/branches` | عرض كل الفروع | 🔒 |
+| `GET` | `/branches/:id` | عرض فرع محدد | 🔒 |
+| `POST` | `/branches` | إضافة فرع جديد | 🔒👑 |
+| `PUT` | `/branches/:id` | تعديل فرع | 🔒👑 |
+| `DELETE` | `/branches/:id` | حذف فرع | 🔒👑 |
 
-## Support
+### 🗂️ Categories
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+| Method | Endpoint | الوصف | الحماية |
+|---|---|---|:---:|
+| `GET` | `/categories` | عرض كل الفئات | 🔒 |
+| `POST` | `/categories` | إضافة فئة | 🔒👑 |
+| `PUT` | `/categories/:id` | تعديل فئة | 🔒👑 |
+| `DELETE` | `/categories/:id` | حذف فئة | 🔒👑 |
 
-## Stay in touch
+### 📦 Products & Variants
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Method | Endpoint | الوصف | الحماية |
+|---|---|---|:---:|
+| `GET` | `/products` | عرض كل المنتجات | 🔒 |
+| `POST` | `/products` | إضافة منتج جديد | 🔒👑 |
+| `GET` | `/product-variants/by-product/:id` | عرض نسخ منتج معين | 🔒 |
+| `POST` | `/product-variants` | إضافة نسخة منتج | 🔒👑 |
 
-## License
+> 🔓 مفتوح · 🔒 يتطلب تسجيل دخول · 👑 يتطلب صلاحية Admin
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 🧪 الاختبار
+
+المشروع تم اختباره بالكامل يدوياً عبر **Postman** لكل Endpoint، متضمناً:
+
+- ✅ اختبار الحماية (401 عند غياب Token)
+- ✅ اختبار الصلاحيات (403 عند نقص الصلاحية)
+- ✅ اختبار نجاح العمليات (200/201)
+- ✅ اختبار العلاقات بين الجداول (Category ↔ Product ↔ Variant)
+- ✅ اختبار القيود (SKU الفريد، الإيميل الفريد، إلخ)
+
+---
+
+## 📸 لقطات من المشروع
+
+<div align="center">
+
+> 💡 *أضف لقطات شاشة من Postman أو pgAdmin هنا لاحقاً، مثلاً:*
+
+| تسجيل الدخول | إدارة الفروع | ربط المنتج بالفئة |
+|:---:|:---:|:---:|
+| `screenshot-login.png` | `screenshot-branches.png` | `screenshot-products.png` |
+
+</div>
+
+---
+
+## 🗺️ خارطة الطريق
+
+- [x] نظام مصادقة كامل (JWT + Refresh Tokens + RBAC)
+- [x] إدارة الفروع
+- [x] إدارة المنتجات والفئات والنسخ (Variants)
+- [ ] نظام المخزون مع Locking لمنع البيع الزائد
+- [ ] محرك الطلبات وتحديد جهة التلبية
+- [ ] إشعارات لحظية عبر WebSocket
+- [ ] تقارير وتحليلات شاملة
+- [ ] دعم Multi-Tenancy
+
+---
+
+## 👨‍💻 المطوّر
+
+**Hosam Tarde**
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Hosamtarde)
+
+---
+
+<div align="center">
+
+⭐ إذا أعجبك المشروع، لا تنسَ إعطاءه نجمة!
+
+</div>
