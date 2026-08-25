@@ -14,6 +14,7 @@ import { UpdateBranchDto } from './dto/update-branch.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../users/enums/role.enum';
 
 @Controller('branches')
 @UseGuards(JwtAuthGuard)
@@ -31,21 +32,21 @@ export class BranchesController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   @Post()
   async create(@Body() dto: CreateBranchDto) {
     return this.branchesService.create(dto);
   }
 
   @UseGuards(RolesGuard)
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   @Put(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateBranchDto) {
     return this.branchesService.update(id, dto);
   }
 
   @UseGuards(RolesGuard)
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.branchesService.remove(id);

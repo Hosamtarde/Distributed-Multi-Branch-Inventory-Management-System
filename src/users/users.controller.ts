@@ -13,6 +13,8 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from './enums/role.enum';
+
 
 @Controller('auth')
 export class UsersController {
@@ -47,7 +49,7 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   @Get('admin-only')
   async adminOnlyRoute() {
     return { message: 'Hello Admin' };
