@@ -19,9 +19,6 @@ export class Product {
   @Column({ nullable: true })
   description!: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
-  basePrice!: number;
-
   @ManyToOne(() => Category, { onDelete: 'SET NULL', nullable: true })
   category!: Category;
 
