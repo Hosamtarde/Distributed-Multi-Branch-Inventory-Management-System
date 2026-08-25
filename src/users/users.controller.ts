@@ -14,7 +14,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from './enums/role.enum';
-
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class UsersController {
@@ -27,6 +27,7 @@ export class UsersController {
     return result;
   }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
   async login(@Body() dto: LoginDto) {
     return this.usersService.login(dto);
