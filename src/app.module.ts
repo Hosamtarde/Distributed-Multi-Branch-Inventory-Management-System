@@ -11,6 +11,7 @@ import { BranchesModule } from './branches/branches.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { ProductVariantsModule } from './products/products-variants/product-variants.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ProductVariantsModule } from './products/products-variants/product-vari
     CategoriesModule,
     ProductsModule,
     ProductVariantsModule,
+    InventoryModule,
   ],
   controllers: [AppController],
   providers: [
