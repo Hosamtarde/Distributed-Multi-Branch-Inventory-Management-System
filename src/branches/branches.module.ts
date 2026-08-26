@@ -8,5 +8,6 @@ import { BranchesController } from './branches.controller';
   imports: [TypeOrmModule.forFeature([Branch])],
   controllers: [BranchesController],
   providers: [BranchesService],
+  exports: [BranchesService],
 })
 export class BranchesModule {}
