@@ -116,8 +116,8 @@ src/
 | 1 | Authentication & Users (JWT, Roles, Refresh Tokens) | ✅ منجز |
 | 2 | Branches Management | ✅ منجز |
 | 3 | Products & Categories & Variants | ✅ منجز |
-| 4 | Inventory Management (Locking) | 🔄 قيد التطوير |
-| 5 | Orders (Online + POS) | ⬜ قادم |
+| 4 | Inventory Management (Locking) | ✅ منجز  |
+| 5 | Orders (Online + POS) | 🔄 قيد التطوير |
 | 6 | Fulfillment Engine | ⬜ قادم |
 | 7 | Returns & Refunds | ⬜ قادم |
 | 8 | Inter-Branch Transfer | ⬜ قادم |
