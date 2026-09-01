@@ -78,7 +78,7 @@ export class InventoryService {
     dto: AdjustQuantityDto,
   ): Promise<InventoryItem> {
     return this.inventoryRepository.manager.transaction(async (manager) => {
-      // الخطوة 1: نقرأ السجل بدون أي relations، مع القفل الحقيقي
+ 
       const item = await manager.findOne(InventoryItem, {
         where: { id },
         lock: { mode: 'pessimistic_write' },
@@ -99,7 +99,6 @@ export class InventoryService {
       item.quantity = newQuantity;
       await manager.save(item);
 
-      // الخطوة 2: بعد ما نحفظ بأمان، نجيب النسخة الكاملة (مع العلاقات) للرد فقط
       const result = await manager.findOne(InventoryItem, {
         where: { id },
         relations: { variant: true, branch: true },
