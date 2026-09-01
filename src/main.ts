@@ -4,6 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,7 @@ async function bootstrap() {
   );
 
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalInterceptors(new ResponseInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('Inventory Management System API')
