@@ -127,7 +127,7 @@ src/
 | 2 | Branches Management | ✅ منجز |
 | 3 | Products & Categories & Variants | ✅ منجز |
 | 4 | Inventory Management (Pessimistic Locking) | ✅ منجز ومُختبر |
-| — | **Production Hardening** (Migrations, Helmet, Swagger, Filters) | ✅ منجز |
+| — | **Production Hardening** (Migrations, Helmet, Swagger, Filters) | ✅ منجز ومختبر |
 | 5 | Orders (Online + POS) | 🔄 قيد التطوير |
 | 6 | Fulfillment Engine | ⬜ قادم |
 | 7 | Returns & Refunds | ⬜ قادم |
