@@ -4,7 +4,7 @@ import { UsersService } from './modules/users/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './modules/users/entities/user.entity';
-import { Role } from './modules/users/enums/role.enum';
+import { Role } from './common/enums';
 import * as bcrypt from 'bcrypt';
 
 async function seed() {

@@ -14,7 +14,7 @@ import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Roles } from '../../auth/decorators/roles.decorator';
-import { Role } from '../../users/enums/role.enum';
+import { Role } from '../../../common/enums';
 
 @Controller('product-variants')
 @UseGuards(JwtAuthGuard)

@@ -14,7 +14,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../users/enums/role.enum';
+import { Role } from '../../common/enums';
 
 @Controller('products')
 @UseGuards(JwtAuthGuard)
