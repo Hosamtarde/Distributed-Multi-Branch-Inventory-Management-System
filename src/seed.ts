@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { UsersService } from './users/users.service';
+import { UsersService } from './modules/users/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './users/entities/user.entity';
-import { Role } from './users/enums/role.enum';
+import { User } from './modules/users/entities/user.entity';
+import { Role } from './modules/users/enums/role.enum';
 import * as bcrypt from 'bcrypt';
 
 async function seed() {
