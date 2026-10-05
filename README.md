@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🏬 Distributed Multi-Branch Inventory Management System
-### نظام إدارة مخزون موزّع متعدد الفروع
+### نظام إدارة مخزون موزّع متعدد الفروعS
 
 [![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
